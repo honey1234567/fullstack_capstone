@@ -96,7 +96,7 @@ app.get("/special", loggerMiddleware,loggerMiddleware_, (req, res) => {
 //Fallback URL api
 app.use((req,res)=>{
     res.status(404).send("Page not found")
-})
+}) 
 // start the server
 const port = 3000;
 const host = "localhost";
