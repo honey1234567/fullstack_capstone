@@ -93,6 +93,10 @@ app.get("/special", loggerMiddleware,loggerMiddleware_, (req, res) => {
     res.send("this is a special route");
     // console output: [2024-11-27T17:27:47.057Z] GET /special
 });
+//Fallback URL api
+app.use((req,res)=>{
+    res.status(404).send("Page not found")
+})
 // start the server
 const port = 3000;
 const host = "localhost";
