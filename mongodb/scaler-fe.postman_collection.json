@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "a61b97b6-9c9a-407a-bf4a-c38a47daa321",
+		"name": "scaler-fe",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14999249",
+		"_collection_link": "https://speeding-flare-651730.postman.co/workspace/6daf33ba-ed66-4f3e-a6b6-313334a475f1/collection/14999249-a61b97b6-9c9a-407a-bf4a-c38a47daa321?action=share&source=collection_link&creator=14999249"
+	},
+	"item": [
+		{
+			"name": "createproduct",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"product_name\":\"cloth\",\r\n    \"product_price\": \"3000\",\r\n    \"isInStock\":true,\r\n    \"category\": \"cloth\",\r\n    \"password\": \"Sep@2024\",\r\n    \"confirm_password\": \"Sep@2024\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetchproduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetchbyid",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/products/674f0f71bdb8e4971670b5c2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products",
+						"674f0f71bdb8e4971670b5c2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateproduct",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"product_name\":\"cloth\",\r\n    \"product_price\": \"300\",\r\n    \"isInStock\":true,\r\n    \"category\": \"cloth\",\r\n    \"password\": \"Sep@2024\",\r\n    \"confirm_password\": \"Sep@2024\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/products/674f0f71bdb8e4971670b5c2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products",
+						"674f0f71bdb8e4971670b5c2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteproduct",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/products/674f12abbdb8e4971670b5c9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products",
+						"674f12abbdb8e4971670b5c9"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
