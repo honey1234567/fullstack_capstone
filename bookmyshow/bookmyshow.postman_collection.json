@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "4c91d88f-e2cf-4726-b47c-0a2767cc3cfb",
+		"name": "bookmyshow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14999249",
+		"_collection_link": "https://speeding-flare-651730.postman.co/workspace/Scaler~6daf33ba-ed66-4f3e-a6b6-313334a475f1/collection/14999249-4c91d88f-e2cf-4726-b47c-0a2767cc3cfb?action=share&source=collection_link&creator=14999249"
+	},
+	"item": [
+		{
+			"name": "registeruser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"name\":\"siri\",\r\n \"email\":\"siri@apple.com\",\r\n \"password\":\"steve\",\r\n \"isAdmin\":false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"email\":\"siri@apple.com\",\r\n \"password\":\"steve\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "currentuser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzU1ZTE4OTJkMjNkM2IwZWFmOGY5YWQiLCJpYXQiOjE3MzQwOTc2MzYsImV4cCI6MTczNDk2MTYzNn0.6jGY0c56TfC9RSRximQe4ecrA7CvavlBiAjGb9_25xM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/users/curruser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"users",
+						"curruser"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

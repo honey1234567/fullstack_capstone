@@ -3,6 +3,8 @@
 2. cd client 
 3. npm start
 4. npm install react-router-dom antd axios
+5. npm install @reduxjs/toolkit
+6. npm install react-redux
 
 install Ant desgn also
 

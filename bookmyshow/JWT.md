@@ -86,3 +86,8 @@ header as a Bearer token.
 Server Validation: The server validates the JWT using the secret key. If
 the JWT is valid, the server processes the request; otherwise, it rejects
 the request.
+ # Flow after writting code
+ 1. login and get token
+ ![alt text](image.png)
+ 2. call get current user with that token and middleware will extrac t userid from token,and api then will find user from that userid
+ ![alt text](image-1.png)

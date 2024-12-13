@@ -11,12 +11,12 @@ const getCurrentUser = async (req, res) => {
 
     try {
         const id = req.params.id;
-        const user = await userModel.findById(id).select("-password");//to discard password from response
+        const user = await userModel.findById(req.body.userId).select("-password");//to discard password from response
         console.log("found user", id, user);
         return res.status(200).send({
             success: true,
             data: user,
-            message: "You are authorized person!",
+            message: "You are authorized person to go to protected route!",
         });
     } catch (err) {
         return res.status(500).json({ message: "Error fetching user:", err });
@@ -38,14 +38,17 @@ const login = async (req, res) => {
             success: false,
             message: "Sorry, Invalid password entered! Please try again.",
         });
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-            expiresIn: "10d"
-        });
-
+      
     }
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "10d"
+    });
+    //will store userid in bearer token
+    console.log("\nPrinting token for debugging purpose, in user Controller:", token, "\n");
     res.status(200).send({
         success: true,
-        message: "you've successfully logged in!"
+        message: "you've successfully logged in!",
+        data: token
     });
 
   }catch(err){

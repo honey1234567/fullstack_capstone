@@ -11,7 +11,7 @@ function Login() {
       if (response.success) {
         message.success(response.message);
         console.log("Token at client side: ",response.data);
-        
+        localStorage.setItem("token", response.data);
         navigate("/");
       } else {
         message.error(response.message);
