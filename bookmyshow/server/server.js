@@ -3,7 +3,7 @@ const express= require('express');
 require('dotenv').config();
 
 // Constants
-const PORT = 3001;
+const PORT = 8081;
 const HOST = "localhost";
 
 // Setup

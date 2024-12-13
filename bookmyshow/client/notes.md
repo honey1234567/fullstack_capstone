@@ -17,4 +17,8 @@ https://ant.design/components/form#form-demo-dynamic-form-items
 and see data saved in database using your mongodb account
 https://cloud.mongodb.com/v2/674c6ef6cfb68655ffad327a#/metrics/replicaSet/674c6f9717bd3556aaef3737/explorer/test/users/find
 
+# axios
+* define proxy in package.json->api make using axios
+* proxy will divert request to that endpoint defined in proxy
+
 
