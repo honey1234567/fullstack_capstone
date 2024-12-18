@@ -8,6 +8,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from './components/ProtectedRoute';
 import { Provider } from 'react-redux';
 import Admin from "./pages/Admin";
+import Profile from "./pages/Profile";
+import Partner from "./pages/Partner";
 function App() {
   return (
     <div>
@@ -18,6 +20,8 @@ function App() {
         <Route path="/login" element={<Login />}/>
         <Route path="/register" element={<Register />}/>
         <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/partner" element={<ProtectedRoute><Partner /></ProtectedRoute>} />
       </Routes>
       </BrowserRouter>
       </Provider>
