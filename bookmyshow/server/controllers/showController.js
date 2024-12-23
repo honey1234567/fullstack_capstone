@@ -56,7 +56,7 @@ const getShowsByTheathres = async (req, res) => {
     try {
         const shows = await Show.find({ theatre: req.body.theatreId }).populate(
             "movie"
-        );
+        );//lazy fetch movie as well
         res.send({
             success: true,
             data: shows,
@@ -88,7 +88,7 @@ const getAllTheathresByMovie = async (req, res) => {
     try {
 
         const { movie, date } = req.body;
-        const shows = await Show.find({ movie, date }).populate("theathre");
+        const shows = await Show.find({ movie, date }).populate("theatre");
         // Filter out the unique theatre.
         const uniqueTheatres = [];
         shows.forEach((show) => {
@@ -97,7 +97,7 @@ const getAllTheathresByMovie = async (req, res) => {
             if (!isTheatreAlreadyPresentInMap) {
                 const showOfThisTheatre = shows.filter((showObj) => showObj.theatre._id === show.theatre._id);
 
-                uniqueTheatres.push({ ...shows.theatre._doc, shows: showOfThisTheatre });
+                uniqueTheatres.push({ ...show.theatre._doc, shows: showOfThisTheatre });
             }
 
             // uniqueTheatres -> [{theatre1, shows: [show1, show2]}, {theatre2, shows: [show1, show2]}]
@@ -140,6 +140,3 @@ const getShowById = async (req, res) => {
 
 
 module.exports = { addShow, updateShow, deleteShow, getShowsByTheathres, getAllTheathresByMovie, getShowById };
-
-
-

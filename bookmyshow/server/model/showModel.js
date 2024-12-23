@@ -14,7 +14,7 @@ const showSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        movies: {
+        movie: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "movies",
             required: true,
@@ -34,7 +34,7 @@ const showSchema = new mongoose.Schema(
         theatre: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "theatre",
-            required: true,
+            required: true,//2 theater cant refer same show,every thetre must have unique sho  id
         },
     },
     {

@@ -1,102 +1,126 @@
-import { Table, Button } from "antd";
-import { useDispatch } from "react-redux";
-
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
-function TheatresTable(){
-    const FakeMovies = [
-        {
-            key: "1",
-            _id: "123241424",
-            poster: "Image1",
-            title: "Inside Out 2",
-            description: "Crazines inside your brain goes to the next level",
-            duration: 120,
-            genre: "Animation",
-            language: "English",
-            releaseDate: "2024-06-01",
-        },
-        {
-            key: "2",
-            _id: "123241425",
-            poster: "Image2",
-            title: "Anatomy of a fall",
-            description: "thrilling murder suspense",
-            duration: 120,
-            genre: "Thriller",
-            language: "English",
-            releaseDate: "2024-06-01",
-        },
-    ];
-    const tableHeading = [
-        {
-            title: "Poster",
-            dataIndex: "poster",
-            render: (text, data) => {
-                return (
-                    <img
-                        width="75"
-                        height="115"
-                        style={{ objectFit: "cover" }}
-                        src={data.poster}
-                    />
+import { getAllTheatresForAdmin, updateTheatre } from "../../api/theatre";
+import { ShowLoading, HideLoading } from "../../redux/loaderSlice";
+import { useDispatch } from "react-redux";
+import { message, Button, Table } from "antd";
+
+const TheatresTable = () => {
+    const [theatres, setTheatres] = useState([]);
+    const dispatch = useDispatch();
+
+    const getData = async () => {
+        try {
+            dispatch(ShowLoading());
+            const response = await getAllTheatresForAdmin();
+            if (response.success) {
+                const allTheatres = response.data;
+                setTheatres(
+                    allTheatres.map(function (item) {
+                        return { ...item, key: `theatre${item._id}` };
+                    })
                 );
+            } else {
+                message.error(response.message);
+            }
+            dispatch(HideLoading());
+        } catch (err) {
+            dispatch(HideLoading());
+            message.error(err.message);
+        }
+    };
+
+    const handleStatusChange = async (theatre) => {
+        try {
+            dispatch(ShowLoading);
+            let values = {
+                ...theatres,
+                theatreId: theatre._id,
+                isActive: !theatre.isActive,
+            };
+
+            const response = await updateTheatre(values);
+            console.log(response, theatre);
+            
+            if (response.success) {
+                message.success(response.message);
+                getData();
+            }
+            dispatch(HideLoading);
+        } catch (err) {
+            dispatch(HideLoading);
+            message.error(err.message);
+        }
+    };
+
+    const columns = [
+        {
+            title: "Name",
+            dataIndex: "name",
+            key: "name",
+        },
+        {
+            title: "Address",
+            dataIndex: "address",
+            key: "address",
+        },
+        {
+            title: "Owner",
+            dataIndex: "owner",
+            render: (text, data) => {
+                return data.owner && data.owner.name;
             },
         },
         {
-            title: "Movie Name",
-            dataIndex: "title",
+            title: "Phone Number",
+            dataIndex: "phone",
+            key: "phone",
         },
         {
-            title: "Description",
-            dataIndex: "description",
+            title: "Email",
+            dataIndex: "email",
+            key: "email",
         },
         {
-            title: "Duration",
-            dataIndex: "duration",
-            render: (text) => {
-                return `${text} Mins`;
+            title: "Status",
+            dataIndex: "status",
+            render: (status, data) => {
+                if (data.isActive) {
+                    return "Approved";
+                } else {
+                    return "Pending/ Blocked";
+                }
             },
-        },
-        {
-            title: "Genre",
-            dataIndex: "genre",
-        },
-        {
-            title: "Language",
-            dataIndex: "language",
-        },
-        {
-            title: "Release Date",
-            dataIndex: "releaseDate",
-           
         },
         {
             title: "Action",
+            dataIndex: "action",
             render: (text, data) => {
                 return (
-                    <div>
-                        <Button
-                   
-                        >
-                            <EditOutlined />
-                        </Button>
-
-                        <Button
-                   
-                        >
-                            <DeleteOutlined />
-                        </Button>
+                    <div className="d-flex align-items-center gap-10">
+                        {data.isActive ? (
+                            <Button onClick={() => handleStatusChange(data)}>Block</Button>
+                        ) : (
+                            <Button onClick={() => handleStatusChange(data)}>Approve</Button>
+                        )}
                     </div>
                 );
             },
         },
     ];
+
+    useEffect(() => {
+        getData();
+    }, []);
+
+    // console.log(theatres.length > 0 && theatres);
+
     return (
         <>
-        <Table/>
+            {theatres && theatres.length > 0 && (
+                <Table dataSource={theatres} columns={columns} />
+            )}
         </>
-    )
-}
+    );
+};
 
 export default TheatresTable;
