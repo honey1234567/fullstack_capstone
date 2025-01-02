@@ -3,3 +3,4 @@
 2. npm install express mongoose bcryptjs jsonwebtoken
 3. install nodemon at global level.
 4. npm install --save dotenv    <!-- to use process -->.
+ npm install stripe

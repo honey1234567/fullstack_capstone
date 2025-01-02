@@ -10,6 +10,8 @@ import { Provider } from 'react-redux';
 import Admin from "./pages/Admin";
 import Profile from "./pages/Profile";
 import Partner from "./pages/Partner";
+import SingleMovie from "./pages/Home/SingleMovie";
+import BookShow from './pages/Home/BookShow';
 function App() {
   return (
     <div>
@@ -22,6 +24,8 @@ function App() {
         <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/partner" element={<ProtectedRoute><Partner /></ProtectedRoute>} />
+        <Route path="/movie/:id" element={<ProtectedRoute><SingleMovie /></ProtectedRoute>} />
+        <Route path="/book-show/:id" element={<ProtectedRoute><BookShow /></ProtectedRoute>} />
       </Routes>
       </BrowserRouter>
       </Provider>
