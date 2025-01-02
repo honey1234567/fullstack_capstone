@@ -29,4 +29,22 @@ https://cloud.mongodb.com/v2/674c6ef6cfb68655ffad327a#/metrics/replicaSet/674c6f
 Gmail
 December@2024
 
+# send email
+sendgrid api-generate api key
+nodemailer-npm package which help us to integrate
+sending otp for reset password
+send ticket on email
+A-0 Z-25
+AA-26
+AA-  (26-1)%25=0
+(26-1)/25=0
+
+# convert-number-to-alphabet-letter
+Just increment letterIndex from 0 (A) to 25 (Z)
+
+const letterIndex = 0
+const letter = String.fromCharCode(letterIndex + 'A'.charCodeAt(0))
+
+console.log(letter)
+
 

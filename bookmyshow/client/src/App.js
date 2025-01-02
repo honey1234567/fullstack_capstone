@@ -12,6 +12,8 @@ import Profile from "./pages/Profile";
 import Partner from "./pages/Partner";
 import SingleMovie from "./pages/Home/SingleMovie";
 import BookShow from './pages/Home/BookShow';
+import Forget from "./pages/Profile/ForgetPassword";
+import Reset from "./pages/Profile/ResetPassword";
 function App() {
   return (
     <div>
@@ -26,6 +28,9 @@ function App() {
         <Route path="/partner" element={<ProtectedRoute><Partner /></ProtectedRoute>} />
         <Route path="/movie/:id" element={<ProtectedRoute><SingleMovie /></ProtectedRoute>} />
         <Route path="/book-show/:id" element={<ProtectedRoute><BookShow /></ProtectedRoute>} />
+        <Route path="/forget" element={<Forget />} />
+
+         <Route path="/reset/:email" element={<Reset />} />
       </Routes>
       </BrowserRouter>
       </Provider>
