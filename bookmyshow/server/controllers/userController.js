@@ -1,6 +1,6 @@
 const userModel = require("../model/userModel");
 const jwt = require('jsonwebtoken');
-
+const bcrypt = require("bcrypt");
 /**
  "name":"siri",
  "email":"siri@apple.com",
@@ -33,13 +33,21 @@ const login = async (req, res) => {
         });
     }
      // simplified password validation.
-     if (req.body.password !== user.password) {
-        return res.status(401).send({//401 is unauthorized
+    //  if (req.body.password !== user.password) {
+    //     return res.status(401).send({//401 is unauthorized
+    //         success: false,
+    //         message: "Sorry, Invalid password entered! Please try again.",
+    //     });
+      
+   // }
+    const isMatch = await bcrypt.compare(req.body.password, user.password)
+    if (!isMatch) {
+        return res.status(401).send({
             success: false,
             message: "Sorry, Invalid password entered! Please try again.",
         });
-      
     }
+
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
         expiresIn: "10d"
     });
@@ -59,7 +67,19 @@ const login = async (req, res) => {
     });
   }
 }
+async function hashPassword(password) {
+    console.time("Time taken");
 
+    const salt = await bcrypt.genSalt(20);
+    console.log("Salt", salt);
+
+    const hashedPassword = await bcrypt.hash(password, salt);
+    console.log("HashedPassword: ", hashedPassword);
+
+    console.timeEnd("Time taken");
+
+    console.log("*********************************************")
+}
 
 const register = async (req, res) => {
     try {
@@ -71,8 +91,15 @@ const register = async (req, res) => {
                 message: "User already registered."
             });
         }
+   // Hash the password.
+   const saltRounds = 10; // The higher the number, the more secure but slower the hasing proccess.
+   const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+   const newUser = new userModel({
+    ...req.body,
+    password: hashedPassword
+});
+await newUser.save();
 
-        const newUser = await userModel.create(req.body);
 
         return res.send({
             success: true,

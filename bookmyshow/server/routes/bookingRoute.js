@@ -3,7 +3,7 @@ const stripe = require("stripe")(process.env.STRIPE_KEY);
 const auth = require("../middlewares/authMiddleware");
 const Booking = require("../model/bookingModel");
 const Show = require("../model/showModel");
-//const EmailHelper = require("../utils/emailHelper");
+const EmailHelper = require("../utils/emailHelper");
 
 router.post("/make-payment", auth, async (req, res) => {
     try {
@@ -72,16 +72,16 @@ router.post("/book-show", auth, async (req, res) => {
         console.log("This is populated booking: ", populatedBooking);
 
 
-        // await EmailHelper("ticketTemplate.html", populatedBooking.user.email, {
-        //     name: populatedBooking.user.name,
-        //     movie: populatedBooking.show.movie.title,
-        //     theatre: populatedBooking.show.theatre.name,
-        //     date: populatedBooking.show.date,
-        //     time: populatedBooking.show.time,
-        //     seats: populatedBooking.seats,
-        //     amount: populatedBooking.seats.length * populatedBooking.show.ticketPrice,
-        //     transactionid: populatedBooking.transactionId
-        // });
+        await EmailHelper("ticketTemplate.html", populatedBooking.user.email, {
+            name: populatedBooking.user.name,
+            movie: populatedBooking.show.movie.title,
+            theatre: populatedBooking.show.theatre.name,
+            date: populatedBooking.show.date,
+            time: populatedBooking.show.time,
+            seats: populatedBooking.seats,
+            amount: populatedBooking.seats.length * populatedBooking.show.ticketPrice,
+            transactionid: populatedBooking.transactionId
+        });
 
         res.send({
             success: true,

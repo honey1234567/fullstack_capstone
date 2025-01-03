@@ -1,7 +1,9 @@
 const express= require('express');
+const helmet = require('helmet');
+const mongoSanitize = require("express-mongo-sanitize");
 // Load env Variables.
 require('dotenv').config();
-
+const rateLimit = require('express-rate-limit');
 // Constants
 const PORT = 8081;
 const HOST = "localhost";
@@ -13,6 +15,36 @@ app.use(express.json()); // Middleware
 // Data base connection.
 const connectDb = require("./config/db");
 connectDb(); // Stablish database connection.
+// Use helmet for setting various HTTP headers for security
+app.use(helmet());
+// Custom Content Security Policy (CSP) configuration to prevent cross site scripting attack
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "example.com"], // Allow scripts from 'self' and example.com
+            styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles (unsafe)
+            imgSrc: ["'self'", "data:", "example.com"], // Allow images from 'self', data URLs, and example.com
+            connectSrc: ["'self'", "api.example.com"], // Allow connections to 'self' and api.example.com
+            fontSrc: ["'self'", "fonts.gstatic.com"], // Allow fonts from 'self' and fonts.gstatic.com
+            objectSrc: ["'none'"], // Disallow object, embed, and applet elements
+            upgradeInsecureRequests: [], // Upgrade insecure requests to HTTPS
+        },
+    })
+);
+
+// Rate limiter middleware
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per `window`.
+    message: "Too many requests from this IP, please try again after 15 minutes"
+});
+
+
+// Apply rate limiter to all API routes
+app.use("/api/", apiLimiter);
+// Sanitize user input to prevent MongoDB Operator Injection
+app.use(mongoSanitize());
 // Global Variables
 const USER_ROUTER = require("./routes/userRouter");
 const MOVIE_ROUTER = require("./routes/movieRoutes");

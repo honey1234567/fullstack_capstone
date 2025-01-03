@@ -4,6 +4,9 @@
 3. install nodemon at global level.
 4. npm install --save dotenv    <!-- to use process 
 5. npm install nodemailer
+npm install express-rate-limit
+npm install express-mongo-sanitize
+npm i helmet
 -->.
  npm install stripe
  # server
