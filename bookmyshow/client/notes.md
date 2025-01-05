@@ -47,4 +47,16 @@ const letter = String.fromCharCode(letterIndex + 'A'.charCodeAt(0))
 
 console.log(letter)
 
+## Model summary
+movie-simple attribute
+thetare-ownwer(user)<--dependend attribute>
+show-movie and thetre
+bookin-show and user
+ # flow
+ http://localhost:3000/partner
+ partner will add thetare and show
+  http://localhost:3000/admin
+ admin will aprove thetre then partner can add show
+ Go to home page and see shows on particular date
+   http://localhost:3000
 

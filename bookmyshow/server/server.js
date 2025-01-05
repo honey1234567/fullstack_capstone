@@ -38,11 +38,13 @@ const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100, // Limit each IP to 100 requests per `window`.
     message: "Too many requests from this IP, please try again after 15 minutes"
+   // statusCode: 429, // HTTP status code for too many requests
+  //  headers: true, // Send rate limit info in the headers
 });
 
 
 // Apply rate limiter to all API routes
-app.use("/api/", apiLimiter);
+//app.use("/api/", apiLimiter);
 // Sanitize user input to prevent MongoDB Operator Injection
 app.use(mongoSanitize());
 // Global Variables
